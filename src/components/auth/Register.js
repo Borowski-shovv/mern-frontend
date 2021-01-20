@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup'
 import { Paper, Button } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import './Register.css';
 
 function Register() {
   const [name, setName] = useState('')
@@ -44,16 +45,17 @@ function Register() {
     }
   }
 
-  return (
+  return (                 
+    <div className="registerPage">
     <div className="container">
      
       <form onSubmit={handleSubmit}>
         <Paper style={{ padding: 16 }}>
-        <h1>Rejestracja</h1>
-        <Box margin={1}>
-            <FormGroup>
+        <h2>Rejestracja</h2>
+            <Box margin={1}>
+              <FormGroup>
               <TextField id="outlined-basic" label="Imię" variant="outlined"  onChange={(e) => setName(e.target.value)}/>
-              </FormGroup>
+              </FormGroup>    
             </Box>  
             <Box margin={1}>
               <FormGroup>
@@ -67,23 +69,28 @@ function Register() {
               </FormGroup>
               </Box> 
               <Box margin={1}>
-              <FormGroup>
-                <TextField id="outlined-basic" label="Potwierdź hasło" variant="outlined" type="password"  onChange={(e) => setPasswordCheck(e.target.value)}/>
-              </FormGroup>
+                <FormGroup>
+                  <TextField id="outlined-basic" label="Potwierdź hasło" variant="outlined" type="password"  onChange={(e) => setPasswordCheck(e.target.value)}/>
+                </FormGroup>
             </Box>    
             <Box margin={1}>
-            <Button 
-              variant="contained"
-              color="primary"
-              type="submit"
-              >Wyślij
-            </Button>
+      
+            <FormGroup>
+              <Button 
+                variant="contained"
+                color="primary"
+                type="submit"
+                >Wyślij
+              </Button>
+            </FormGroup>
+         
             <div>
               {error}
             </div>
           </Box>
       </Paper>
       </form>
+    </div>
     </div>
   );
 }
