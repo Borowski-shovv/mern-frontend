@@ -1,0 +1,7 @@
+.projectPage {
+    display: flex;
+}
+
+.projectPage-report {
+    padding: 0 40px;
+}

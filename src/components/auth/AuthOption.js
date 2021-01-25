@@ -6,7 +6,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 function AuthOption() {
   const { userData, setUserData } = useContext(UserContext);
-  console.log(userData);
+  // console.log(userData);
 
   const history = useHistory();
 

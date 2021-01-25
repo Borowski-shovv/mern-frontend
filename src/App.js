@@ -3,22 +3,20 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import UserContext from './context/userContext';
 import Axios from 'axios';
 import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-
-
+import Project from './components/pages/Project'
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Header from './components/layout/Header';
-import PrivateRoute from './components/PrivateRoute';
-import Projects from './components/pages/Projekty';
+// import ReportPage from './components/pages/Report';
 
 function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
   });
+  const [projectsList, setProjectsList] = useState([]);
+  // const [reportsList, setReportsList] = useState([]);
 
+  // console.log(process.env.NODE_ENV === 'development')
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem('auth-token');
@@ -29,15 +27,21 @@ function App() {
       const tokenResponse = await Axios.post('/users/tokenIsValid', null, {
         headers: { 'x-auth-token': token },
       });
-      console.log(tokenResponse.data);
+      // console.log(tokenResponse.data);
       if (tokenResponse.data) {
         const userRes = await Axios.get('/users', { 
+          headers: { 'x-auth-token': token },
+        });
+        const projectsData = await Axios.get('http://localhost:5000/projects', { 
           headers: { 'x-auth-token': token },
         });
         setUserData({
           token,
           user: userRes.data,
         });
+        setProjectsList(
+          projectsData.data
+      );
       }
     };
 
@@ -47,13 +51,12 @@ function App() {
   return (
     <>
       <Router>
-        <UserContext.Provider value={{ userData, setUserData }}>
+        <UserContext.Provider value={{ userData, setUserData, projectsList }}>
           <Switch>
             <Route path="/" exact component={Home} /> 
+            <Route path="/project/:id" exact component={Project} /> 
+            <Route path="/project/:id/:date" exact component={Project} /> 
             <Route path="/login" exact component={Login} /> 
-            {/* <Route path="/projekty" exact component={Projects} />  */}
-            {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
-            {/* <Route path="/register" exact component={Register} /> */}
           </Switch>
         </UserContext.Provider>
       </Router>
