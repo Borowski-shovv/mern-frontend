@@ -17,6 +17,7 @@ function Project() {
     
     const defaultProjectId = projectsList[0]?._id
     console.log("R", reports)
+    
     useEffect(() => {
         const getOneProject = () => {
           if(id === undefined) return
@@ -34,26 +35,25 @@ function Project() {
           (id === undefined) ? projectId = pId : projectId = id;
 
             Axios.get('http://localhost:5000/reports/'+projectId)
-            
               .then(response => { setReports(response.data) })
             };
         getProjectReport( defaultProjectId);
 
-        const getMetchedReport = (pId) => {
-          let projectId;
-          (id === undefined) ? projectId = pId : projectId = id;
-          // let time;
-          // (id === undefined) ? time : ;
-          // console.log(projectId)
+        // const getMetchedReport = (pId) => {
+        //   let projectId;
+        //   (id === undefined) ? projectId = pId : projectId = id;
+        //   // let time;
+        //   // (id === undefined) ? time : ;
+        //   // console.log(projectId)
 
-            Axios.get('http://localhost:5000/reports/'+projectId+'/'+date)
-              .then(response => { })
-            };
-        getMetchedReport(defaultProjectId);
+        //     Axios.get('http://localhost:5000/reports/'+projectId+'/'+date)
+        //       .then(response => { })
+        //     };
+        // getMetchedReport(defaultProjectId);
         
     }, [id, date, defaultProjectId])
     
-      const reportDate = moment(reports[0]?.date, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('MMMM YYYY')
+    const reportDate = moment(reports[0]?.date, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('MMMM YYYY')
     return (
         <div className="projectPage">
           <Sidebar reports={reports}/>
@@ -62,7 +62,7 @@ function Project() {
                 <div className="projectPage-report">
                   <h1>{projectsList[0]?.name}</h1> 
                   <h3>
-                    Data raportu: { reportDate}
+                    Data raportu: { reportDate }
                   </h3>
                    <ul>
                     {
@@ -83,6 +83,7 @@ function Project() {
                     (
                       <div className="projectPage-report">
                         <h1>{project}</h1>
+                        
                         <Reports reports={reports}/>
                         
                       </div>

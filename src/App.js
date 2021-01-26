@@ -6,6 +6,7 @@ import './App.css';
 import Project from './components/pages/Project'
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
+import ReportPage from './components/pages/Report';
 // import ReportPage from './components/pages/Report';
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} /> 
             <Route path="/project/:id" exact component={Project} /> 
-            <Route path="/project/:id/:date" exact component={Project} /> 
+            <Route path="/project/:id/:date" exact component={ReportPage} /> 
             <Route path="/login" exact component={Login} /> 
           </Switch>
         </UserContext.Provider>

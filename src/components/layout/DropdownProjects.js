@@ -14,6 +14,7 @@ const DropDownMenu = ({reports}) => {
     const {id} = useParams()
 
     const { projectsList } = useContext(userContext);
+    const defaultProjectId = projectsList[0]?._id
     
     useEffect(() => {
         const pageClickEvent = (e) => {
@@ -25,23 +26,12 @@ const DropDownMenu = ({reports}) => {
         if (isActive) {
             window.addEventListener('click', pageClickEvent);
         }
-        // moment.locale('pl')
         return () => {
-                window.removeEventListener('click', pageClickEvent);
-            }
+            window.removeEventListener('click', pageClickEvent);
+        }
 
         }, [isActive]);
-        
-        
-    // const fetchReportData = (date) => {
-    //     console.log(date)  
-    //     // Axios.get('http://localhost:5000/reports/'+id, {
-    //     //     
-    //     // })
-    //     // .then(response => { setReports(response.data) })
-    // //   };  
-    // } 
- 
+            
     const onClick = () => setIsActive(!isActive);
 
     return (
@@ -66,12 +56,10 @@ const DropDownMenu = ({reports}) => {
                         // const date =  moment(report?.date, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('YYYY-MM');
                         return (
                             <li key={report.date}>
-                                <Link to={'/project/'+id+'/'+moment(report?.date, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('YYYY-MM')}>
-                                {moment(`${report?.date}`, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('MMMM YYYY')}
-                                </Link>
-                                {/* <Button onClick={() => fetchReportData(date)}>
+                                <Link to={`/project/${id === undefined ?  defaultProjectId : id}/`+moment(report?.date, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('YYYY-MM-DD')}>
                                     {moment(`${report?.date}`, 'YYYY-MM-DDTHH:mm:ss.SSS[Z]').format('MMMM YYYY')}
-                                </Button> */}
+                                </Link>
+                               
                             </li>
                         )
                     })
